@@ -38,7 +38,7 @@ module "autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
   version = "9.0.1"
 
-  name     = "blog"
+  name     = "${var.environment.name}-blog"
   min_size = var.asg_min_size
   max_size = var.asg_max_size
 
@@ -55,7 +55,7 @@ module "blog_alb" {
   source = "terraform-aws-modules/alb/aws"
   version = "~> 6.0"
 
-  name    = "blog-alb"
+  name    = "${var.environment.name}-blog-alb"
 
   load_balancer_type = "application"
 
@@ -88,7 +88,7 @@ module "blog_alb" {
 module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "5.3.0"
-  name    = "blog"
+  name    = "${var.environment.name}-blog"
 
   vpc_id = module.blog_vpc.vpc_id
 
